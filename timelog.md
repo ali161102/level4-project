@@ -13,7 +13,7 @@
 
 ### 2 Oct 2021
 
-* **30 minutes** further background reading into bell ringing
+* *30 minutes* further background reading into bell ringing
 
 ## Week 2
 
@@ -42,4 +42,15 @@
 * *1 hour* supervisor meeting
 
 * *1 hour* making changes to digraph simple path search
+
+### 16 Oct 2021
+
+* *1 hour 30 minutes* reading into change-ringing theory
+
+* *1 hour* planning representation of methods and converting lead head into lead
+
+* *1 hour* setting up GitHub repository
+
+### 17 Oct 2021
+
 

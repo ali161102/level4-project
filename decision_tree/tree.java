@@ -7,8 +7,8 @@ public class tree {
     // possibly other fields representing properties of the graph
 
     public vertex root;
-    private int duplicates;
-    private int returns;
+    public int duplicates;
+    public int returns;
 
     /** Create a Graph with n vertices indexed 0,...,n-1 */
     public tree(String r) {
@@ -58,11 +58,17 @@ public class tree {
                 // v.path.clear();
                 // v.changes.clear();
             }
-            System.out.println("returns = " + returns + " duplicates = " + duplicates);
-            System.out.println("return path is of length " + (v.path.size()) + " - " + v.path);
-            System.out.println("changes path is " + v.changes);
-            System.out.println(" ");
-            // + v.path + " 53246");
+            System.out.println("return path " + returns + " is of length " + (v.path.size()));
+            // System.out.println("changes path is " + v.changes);
+            
+            ArrayList<String> output = new ArrayList<String>();
+            String stroutput = new String();
+            for (int i = 0; i < v.changes.size(); i++) {
+                output.add(v.path.get(i));
+                output.add(v.changes.get(i).toString());
+                stroutput = String.join(" ", output);
+            }
+            System.out.println(stroutput + " " +  v.path.get(v.path.size()-1) + "\n");
 
         }
 
@@ -106,8 +112,6 @@ public class tree {
             if (!v.getVisited()) {
                 dynamic_visit(v, rt);
             }
-
-            System.out.println("---- end of dfs from " + v.row + " ---------");
         }
         // }
         // v.setVisited(false); // initialise
@@ -117,111 +121,3 @@ public class tree {
     }
 }
 
-// import java.util.*;
-
-// /**
-// class to represent an undirected graph using adjacency lists
-// */
-// public class Graph {
-
-// private Vertex[] vertices; // the (array of) vertices
-// private int numVertices = 0; // number of vertices
-// private HashSet<Vertex> S = new HashSet<>();
-// // set S of which the shortest path is known
-// PriorityQueue<AdjListNode> pqueue;
-// // priority queue to be used in Dijkstra implementation
-
-// /**
-// * creates a new instance of Graph with n vertices
-// */
-// public Graph(int n, String[] dict) {
-// numVertices = n;
-// vertices = new Vertex[n];
-// for (int i = 0; i < n; i++) {
-// String word = dict[i];
-// vertices[i] = new Vertex(i, word);
-// }
-// }
-
-// public int size() {
-// return numVertices;
-// }
-
-// public Vertex getVertex(int i) {
-// return vertices[i];
-// }
-
-// public void setVertex(int i, String s) {
-// vertices[i] = new Vertex(i, s);
-// }
-
-// public Vertex findVertex(String s) {
-// for (Vertex v : vertices) {
-// if (s.equals(v.getWord())) {
-// return v;
-// }
-// }
-// return null;
-// }
-
-// /**
-// * carry out Dijkstra's shortest path algorithm
-// */
-// public void dijkstra(Vertex start, Vertex finish) {
-
-// for (Vertex v : vertices) {
-// v.distance = Integer.MAX_VALUE;
-// // initialise distance for all vertices as 'infinity'
-// }
-
-// pqueue.add(new AdjListNode(start, start.getWord(), start.getIndex())); // add
-// source vertex to priority queue
-
-// start.setDistance(0); // distance from source to itself is of course 0
-// while (S.size() != numVertices) {
-// // there are still unchecked vertices
-// Vertex u = pqueue.remove().vertex;
-
-// // process u
-
-// S.add(u);
-// }
-
-// // output lowest cost path from start -> finish
-// List<String> shortestPath = new ArrayList<>();
-// String output = "";
-// Vertex node = finish;
-// while(node != null) {
-// shortestPath.add(node.getWord());
-// node = node.getPredecessor();
-// }
-// Collections.reverse(shortestPath);
-// output = output.join(" -> ", shortestPath);
-// System.out.println("\n" + "Shortest distance path has cost " +
-// finish.distance);
-// System.out.println(output);
-// }
-
-// // helper function for Dijkstra's, processes a vertex
-// private void process(Vertex u) {
-// int edgeWeight = -1;
-// int newWeight = -1;
-// // process all adjacent nodes to u
-// for (int i = 0; i < u.getAdjList().size(); i++) {
-// Vertex v = u.getAdjList().get(i).vertex;
-
-// if (!S.contains(v)) {
-// // v has not already been checked
-// edgeWeight = u.getAdjList().get(i).getWeight();
-// newWeight = u.distance + edgeWeight;
-
-// if (newWeight < v.distance) {
-// // the new distance is shorter than the current path to v
-// v.distance = newWeight;
-// pqueue.add(new AdjListNode(v, v.getWord(), v.getIndex()));
-// }
-// }
-// }
-// }
-
-// }
