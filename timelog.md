@@ -51,6 +51,6 @@
 
 * *1 hour* setting up GitHub repository
 
-### 17 Oct 2021
+
 
 
