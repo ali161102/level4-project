@@ -13,7 +13,7 @@
 
 ### 2 Oct 2021
 
-* *30 minutes* further background reading into bell ringing
+* *30 minutes* background reading into bell ringing
 
 ## Week 2
 
@@ -54,6 +54,15 @@
 ### 17 Oct 2021
 
 * *2 hours* implementing lead head -> lead function for Cambridge S Minor
+
+* *2 hours 30 minutes* function for complib row data to nested int array format
+
+## Week 3
+
+### 18 Oct 2021
+
+* *1 hour* meeting with supervisor
+
 
 
 
