@@ -51,6 +51,10 @@
 
 * *1 hour* setting up GitHub repository
 
+### 17 Oct 2021
+
+* *2 hours* implementing lead head -> lead function for Cambridge S Minor
+
 
 
 
