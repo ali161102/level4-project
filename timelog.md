@@ -63,7 +63,7 @@
 
 * *1 hour* meeting with supervisor
 
+### 20 Oct 2021
 
-
-
+* *3 hours* working on Cambridge S Major composition search, row -> unique int function
 
