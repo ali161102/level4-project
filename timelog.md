@@ -67,3 +67,6 @@
 
 * *3 hours* working on Cambridge S Major composition search, row -> unique int function
 
+### 22 Oct 2021
+
+* *8 hours* implementing dfs for plain/bob tree for composition search
