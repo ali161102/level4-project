@@ -70,3 +70,11 @@
 ### 22 Oct 2021
 
 * *8 hours* implementing dfs for plain/bob tree for composition search
+
+### 24 Oct 2021
+
+* *4 hours* debugging naive composition dfs
+
+### 25 Oct 2021
+
+* *1 hour 30 minutes* criteria/other additions to dfs (BitSet, 5000<=len<=5600, tenors together check) 
