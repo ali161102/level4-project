@@ -7,8 +7,9 @@ public class lead_vertex {
     public ArrayList<String> lead;
 
     public Boolean visited;
-    //public BitSet rung;
-    public ArrayList<Integer> rung;
+    //
+    public BitSet rung;
+    //public ArrayList<Integer> rung;
     public ArrayList<String> path;
     public ArrayList<Character> calls;
     public char call;
@@ -19,7 +20,16 @@ public class lead_vertex {
         lead_head = row;
         visited = false;
         call = c;
-        // rung = b;
+    }
+
+    public static Boolean tenorsTogether (String lh) {
+        // 17864523 -> 8765324
+        //             21357642
+        String course_order = "" + lh.charAt(2) + lh.charAt(1) + lh.charAt(3) + lh.charAt(5) + lh.charAt(7) + lh.charAt(6) + lh.charAt(4) + lh.charAt(2);
+        if (course_order.contains("87")) {
+            return true;
+        }
+        return false;
     }
 
     public void generate_lead() {
@@ -91,23 +101,36 @@ public class lead_vertex {
         for (String row : lead) {
             
             int rowInt = rowToInt(row);
-            // if (rung.get(rowInt)) {
-            //     return false;
-            // }
-            if (rung.contains(rowInt)) {
-                // System.out.println(rung + "\n" + "contains " + rowInt + " = " + row);
+
+            if (rung.get(rowInt)) {
                 return false;
             }
-            rung.add(rowInt);
+
+            rung.set(rowInt);
+            // if (rung.contains(rowInt)) {
+            //     // System.out.println(rung + "\n" + "contains " + rowInt + " = " + row);
+            //     return false;
+            // }
+            //rung.add(rowInt);
             // System.out.println("updateBitSet - adding " + row + " = " + rowInt);
         }
         return true;
     }
 
-    public void initialisePath() {
+    public void initialiseRoot() {
         path = new ArrayList<String>();
         calls = new ArrayList<Character>();
-        rung = new ArrayList<Integer>();
+        rung = new BitSet();
+    }
+
+    public void initialisePath() {
+        // path = new ArrayList<String>();
+        // calls = new ArrayList<Character>();
+        // rung = new ArrayList<Integer>();
+
+        path = predecessor.path;
+        calls = predecessor.calls;
+        rung = predecessor.rung;
         //rung = new BitSet(40320);
         // p.add(r);
         // path.add("53246");
@@ -133,8 +156,5 @@ public class lead_vertex {
         lead_vertex[] successors = { plain, bob };
         return (successors);
     }
-
-
-
 
 }
