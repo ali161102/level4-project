@@ -5,12 +5,13 @@ public class lead_dfs {
 
         lead_tree G = new lead_tree("12345678");
         
-        G.root.initialiseRoot();
+        G.initialisePath();
 
-        G.root.addToPath("12345678");
+        G.addToPath("12345678");
         
-        G.root.generate_lead();
-        G.root.updateBitSet();
+        G.generate_lead(G.root);
+
+        G.updateBitSet();
         //Sysem.out.println(G.root.rung.get(39781));
 
         G.dynamic_dfs(G.root);
