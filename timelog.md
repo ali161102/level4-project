@@ -75,6 +75,14 @@
 
 * *4 hours* debugging naive composition dfs
 
+## Week 4
+
 ### 25 Oct 2021
 
 * *1 hour 30 minutes* criteria/other additions to dfs (BitSet, 5000<=len<=5600, tenors together check) 
+
+* *30 minutes* supervisor meeting
+
+### 31 Oct 2021
+
+* *11 hours* adapting composition search to dynamically update one set of arrays during traversal, rather than have copies in every vertex
