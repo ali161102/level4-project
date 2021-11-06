@@ -86,3 +86,13 @@
 ### 31 Oct 2021
 
 * *11 hours* adapting composition search to dynamically update one set of arrays during traversal, rather than have copies in every vertex
+
+## Week 5
+
+### 1 Nov 2021
+
+* *1 hour* supervisor meeting
+
+### 4 Nov 2021
+
+* *4 hours* debugging/some refactoring of composition search
