@@ -1,3 +1,4 @@
+import java.nio.charset.CharacterCodingException;
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -51,20 +52,26 @@ public class lead_tree {
         ArrayList<Character> finalcalls = new ArrayList<Character>();
 
         for (char c : calls) {
-            if (c == '-') {
+            if (c == 'p') {
                 plains++;
             } else {
                 if (plains > 0) {
                     char plainschar = (char)('0' + plains);
 
-                    plainschar = '-';
-                    finalcalls.add(plainschar);
+                    // plainschar = '-';
+                    // finalcalls.add(plainschar);
                 }
                 plains = 0;
                 finalcalls.add(c);
             }
         }
+
         return(finalcalls);
+        // char[] finalcallsArray = new char[finalcalls.size()];
+        // for(int i = 0; i < finalcalls.size(); i++) {
+        //     finalcallsArray[i] = finalcalls.get(i);
+        // }
+        // return(finalcallsArray);
 
     }
 
@@ -74,6 +81,7 @@ public class lead_tree {
         System.out.println(calls);
 
     }
+    
     public static Boolean tenorsTogether (String lh) {
         // 17864523 -> 8765324
         //             21357642
@@ -82,6 +90,31 @@ public class lead_tree {
             return true;
         }
         return false;
+    }
+
+    public static ArrayList<String> lead(String lead_head) {
+
+        int[][] method = new int[][]{{0, 1, 0, 1, 2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 6, 7, 7, 6, 7, 6, 5, 4, 5, 4, 3, 2, 3, 2, 1, 0, 1, 0}, 
+                                     {1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 2, 3, 2, 3, 4, 5, 6, 7, 6, 7, 6, 7, 7, 6, 7, 6, 5, 4}, 
+                                     {2, 3, 4, 5, 4, 5, 6, 7, 6, 7, 6, 7, 7, 6, 7, 6, 6, 7, 6, 7, 7, 6, 7, 6, 7, 6, 5, 4, 5, 4, 3, 2}, 
+                                     {3, 2, 2, 3, 3, 2, 3, 2, 2, 3, 3, 2, 3, 2, 1, 0, 1, 0, 0, 1, 0, 1, 2, 3, 4, 5, 6, 7, 6, 7, 7, 6}, 
+                                     {4, 5, 6, 7, 6, 7, 7, 6, 7, 6, 7, 6, 5, 4, 3, 2, 3, 2, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1}, 
+                                     {5, 4, 3, 2, 1, 0, 0, 1, 0, 1, 2, 3, 2, 3, 4, 5, 4, 5, 5, 4, 4, 5, 4, 5, 5, 4, 4, 5, 4, 5, 6, 7}, 
+                                     {6, 7, 7, 6, 7, 6, 5, 4, 3, 2, 1, 0, 1, 0, 0, 1, 0, 1, 2, 3, 2, 3, 3, 2, 2, 3, 2, 3, 3, 2, 2, 3}, 
+                                     {7, 6, 5, 4, 5, 4, 4, 5, 5, 4, 5, 4, 4, 5, 5, 4, 5, 4, 3, 2, 3, 2, 1, 0, 1, 0, 0, 1, 2, 3, 4, 5}};
+
+        ArrayList<String> currentlead = new ArrayList<String>();
+
+        for (int i=0; i < method[0].length; i++) {
+            char[] row = new char[method.length];
+            for (int j = 0; j < method.length; j++) {
+                row[method[j][i]] = lead_head.charAt(j);
+            }
+            currentlead.add(new String(row));
+        }
+
+        return(currentlead);
+
     }
 
     public void generate_lead(lead_vertex v) {
@@ -137,7 +170,7 @@ public class lead_tree {
 
         }
 
-        v.plain = new lead_vertex(next_lh_plain, '-');
+        v.plain = new lead_vertex(next_lh_plain, 'p');
         v.bob = new lead_vertex(next_lh_bob, call);
 
         // if (!tenorsTogether(next_lh_bob)) {
@@ -206,6 +239,13 @@ public class lead_tree {
         return true;
     }
 
+    public void removeFromBitSet(String lead_head) {
+        ArrayList<String> lead = lead(lead_head);
+        for (String row : lead) {
+            rung.set(rowToInt(row), false);
+        }
+    }
+
     public void initialisePath() {
         path = new ArrayList<String>();
         calls = new ArrayList<Character>();
@@ -218,13 +258,64 @@ public class lead_tree {
     }
 
     public void updateForPred() {
-        for (String row : lead) {
-            rung.set(rowToInt(row), false);
-            //rungstr.remove(row);
+        if (!lead.get(0).equals("12345678")) {
+            for (String row : lead) {
+                rung.set(rowToInt(row), false);
+                //rungstr.remove(row);
+            }
         }
-        calls.remove(calls.size()-1);
-        path.remove(path.size()-1);
+        //calls.remove(calls.size()-1);
+        // path.remove(path.size()-1);
     }
+
+    private void outputComposition(char lastcall) {
+        // System.out.println(path);
+        int numrows = ((path.size())*32);
+            // System.out.println("return path " + returns + " is of length " + (v.path.size()) + " leads = " + numrows + " rows\n");
+
+        // length is between 5000 and 5600 inclusive, so return path
+        //if ((5000 <= numrows) && (numrows <= 5600)) {
+        if (numrows >= 50) {
+            returns++;
+            //System.out.println("return path " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows\n");
+
+            
+            // formatting path and calls output
+            ArrayList<String> output = new ArrayList<String>();
+            String stroutput = new String();
+            this.calls.add(lastcall);
+            for (int i = 0; i < path.size(); i++) {
+                // System.out.println("v.path = " + path + " i = " + i + path.get(i));
+                output.add(path.get(i));
+                output.add(calls.get(i).toString());
+                stroutput = String.join(" ", output);
+            }
+            System.out.println(stroutput + " 12345678");
+            System.out.println(" ");
+            //if ((numrows >= 5000) && (numrows <= 5600)) {
+            //if ((numrows == 5600) || (numrows == 5152) || (numrows == 5056) || (numrows == 5184)) {
+            //if (numrows == 5056) {
+                System.out.println("return path " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows");
+                //System.out.println("----\nlength " + numrows);
+                ArrayList<Character> changes = condensePlains(calls);
+                System.out.println(changes);
+                
+                // currently seeing if a specific composition is returned
+                if (numrows == 5056) {
+                    if (changes.get(0).equals('H') && changes.get(1).equals('H') && changes.get(2).equals('M') && changes.get(3).equals('M')) {
+                        System.out.println(path);
+                    }
+                }
+
+
+                System.out.println("----");
+            //} 
+            //path.remove(path.size()-1);
+            calls.remove(path.size()-1);
+            }    
+    }  
+
+    
 
     /** visit vertex v, with predecessor index p, during a dfs */
     private int dynamic_visit(lead_vertex v, lead_vertex p) {
@@ -244,13 +335,13 @@ public class lead_tree {
         // updates the current path and call path at this node
 
         // System.out.println(v.lead_head + " from " + p.lead_head);
-        if (path.size() < 5) {
-            System.out.println("path: " + path);
-        } else {
-            System.out.println("12345678 -> ... -> " + path.get(path.size()-3) + " -> " + path.get(path.size()-2) + " -> " + path.get(path.size()-1));
-        } 
-
-        System.out.println("calls: " + calls.size() + calls + "\n");
+        //if (path.size() < 5) {
+        
+        //} else {
+        //    System.out.println("12345678 -> ... -> " + path.get(path.size()-3) + " -> " + path.get(path.size()-2) + " -> " + path.get(path.size()-1));
+         
+        //System.out.println("path: " + path.size() + " " + path);
+        //System.out.println("calls: " + calls.size() + calls + "\n");
 
         // System.out.println("rungstr = " + rungstr.toString());
 
@@ -265,15 +356,7 @@ public class lead_tree {
             backToPred = true;
         }
 
-        // length is >5600, terminate dfs
-        // if (path.size() > 175) {
-        //     // System.out.println(v.path.size()*32 + " rows\t" + duplicates + "\t" + returns + "\n");
-        //     for (lead_vertex s : successors) {
-        //         s.setVisited(true);
-        //     }
-        //     backToPred = true;
 
-        // }
 
         // checks for repetition using bitset
         if(!v.lead_head.equals("12345678") && !updateBitSet()) {
@@ -293,45 +376,33 @@ public class lead_tree {
 
 
         // indicates returning path
-        if (v.lead_head.equals("12345678")) {
-            // System.out.println("back to 12345678 " + v.path.size());
+        // if (v.lead_head.equals("12345678")) {
+        //     // System.out.println("back to 12345678 " + v.path.size());
             
 
+        //     for (lead_vertex s : successors) {
+        //         s.setVisited(true);
+
+        //     }
+        //     backToPred = true; 
+            
+
+        // }
+
+        // length is >5600, terminate dfs
+        if (path.size() > 175) {
+            // System.out.println(v.path.size()*32 + " rows\t" + duplicates + "\t" + returns + "\n");
             for (lead_vertex s : successors) {
                 s.setVisited(true);
-
             }
             backToPred = true;
 
-            int numrows = ((path.size()-1)*32);
-            // System.out.println("return path " + returns + " is of length " + (v.path.size()) + " leads = " + numrows + " rows\n");
-
-            // length is between 5000 and 5600 inclusive, so return path
-            //if ((5000 <= numrows) && (numrows <= 5600)) {
-            if (numrows > 50) {
-                returns++;
-                System.out.println("return path " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows\n");
-
-                
-                
-                // System.out.println(v.rung);
-
-                // formatting path and calls output
-                ArrayList<String> output = new ArrayList<String>();
-                String stroutput = new String();
-                for (int i = 0; i < path.size()-1; i++) {
-                    // System.out.println("v.path size = " + v.path + " i = " + i);
-                    output.add(path.get(i));
-                    output.add(calls.get(i).toString());
-                    stroutput = String.join(" ", output);
-                }
-                System.out.println(stroutput + " 12345678");
-                System.out.println(" ");
-
-            }   
-            
-
         }
+
+
+
+
+  
 
         // indicates next step is to go up one level to predecessor
         if (backToPred) {
@@ -339,8 +410,30 @@ public class lead_tree {
             // returns the path, calls etc to their state before this node visited
         }
 
+
+
         // LinkedList<AdjListNode> L = v.getAdjList(); // get adjacency list
         for (lead_vertex s : successors) { // go through all successor vertices
+
+            System.out.println("-------\nsvp = " + s.lead_head + " " + v.lead_head + " " + p.lead_head + "\n" + path + "\t" + calls + "\n");
+
+            // System.out.println(path.get(path.size()-1) + "\t" + v.lead_head);
+            while (!(path.get(path.size()-1).equals(v.lead_head))) {
+                removeFromBitSet(path.get(path.size()-1));
+                path.remove(path.size()-1);
+                calls.remove(calls.size()-1);
+
+                //System.out.println("INSIDE WHILE - " + path.get(path.size()-1) + "\t" + v.lead_head);
+            }
+            
+            
+
+            if (s.lead_head.equals("12345678")) {
+                //System.out.println(s.lead_head);
+                // indicates that we have a true composition
+                s.setVisited(true);
+                outputComposition(s.call);
+            }
             
             // prevents visiting a lead where the lead head has already been rung (false composition)
             if ((rung.get(rowToInt(s.lead_head))) && (!s.lead_head.equals("12345678"))) {
@@ -358,8 +451,17 @@ public class lead_tree {
                 dynamic_visit(s, v); // continue dfs search from it
                 
             }
+
             // setting the predecessor vertex index to the index of v
+
+
         }
+
+        
+        if (backToPred) {
+            updateForPred();
+        } 
+        // dynamic_visit(p, p.predecessor);
         // System.out.println("ends");
         return (returns);
     }
@@ -369,7 +471,7 @@ public class lead_tree {
         generate_lead(rt);
         lead_vertex[] L = rt.getSuccessors();
     
-        System.out.println(L[0].lead_head + " " + L[1].lead_head);
+        //System.out.println(L[0].lead_head + " " + L[1].lead_head);
         for (lead_vertex v : L) {
             // vertex v = L[0];
             // System.out.println(v.getVisited());
