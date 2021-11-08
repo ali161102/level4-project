@@ -96,3 +96,7 @@
 ### 4 Nov 2021
 
 * *4 hours* debugging/some refactoring of composition search
+
+### 7 Nov 2021
+
+* *8 hours* working on composition search, finally outputs long compositions (though not correct)
