@@ -100,3 +100,9 @@
 ### 7 Nov 2021
 
 * *8 hours* working on composition search, finally outputs long compositions (though not correct)
+
+## Week 6
+
+### 8 Nov 2021
+
+* *1 hour* supervisor meeting, discussed anomalies in code and further debugging steps
