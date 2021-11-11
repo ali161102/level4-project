@@ -18,7 +18,9 @@ public class lead_tree {
         returns = 0;
     }
 
-    public void printLead(String leadhead) {
+
+
+    public static void printLead(String leadhead) {
         // converter from a leadhead to its respective lead (cambridge surprise major)
         int[][] method = new int[][]{{0, 1, 0, 1, 2, 3, 2, 3, 4, 5, 4, 5, 6, 7, 6, 7, 7, 6, 7, 6, 5, 4, 5, 4, 3, 2, 3, 2, 1, 0, 1, 0, 0}, 
                                      {1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 2, 3, 2, 3, 4, 5, 6, 7, 6, 7, 6, 7, 7, 6, 7, 6, 5, 4, 5}, 
@@ -172,6 +174,9 @@ public class lead_tree {
 
         v.plain = new lead_vertex(next_lh_plain, 'p');
         v.bob = new lead_vertex(next_lh_bob, call);
+        if (call == 'B') {
+            v.bob.setVisited(true);
+        }
 
         // if (!tenorsTogether(next_lh_bob)) {
         //     v.bob.setVisited(true);
@@ -284,6 +289,7 @@ public class lead_tree {
             ArrayList<String> output = new ArrayList<String>();
             String stroutput = new String();
             this.calls.add(lastcall);
+
             for (int i = 0; i < path.size(); i++) {
                 // System.out.println("v.path = " + path + " i = " + i + path.get(i));
                 output.add(path.get(i));
@@ -299,6 +305,8 @@ public class lead_tree {
                 //System.out.println("----\nlength " + numrows);
                 ArrayList<Character> changes = condensePlains(calls);
                 System.out.println(changes);
+
+                outputCalls(changes);
                 
                 // currently seeing if a specific composition is returned
                 if (numrows == 5056) {
@@ -314,6 +322,40 @@ public class lead_tree {
             calls.remove(path.size()-1);
             }    
     }  
+
+    private void outputCalls(ArrayList<Character> calls) {
+        ArrayList<Character> calling = (ArrayList<Character>) calls.clone();
+        ArrayList<String> rows = new ArrayList<String>();
+        int middles = 0; int wrongs = 0; int homes = 0;
+        if (calling.size() == 0) {
+            System.out.println("plain course");
+            return;
+        } 
+        while (calling.size() > 0) {
+            while ((calling.size() > 0) && (calling.get(0).equals('M'))) {
+                middles++;
+                calling.remove(0);
+            }
+            while ((calling.size() > 0) && (calling.get(0).equals('W'))) {
+                wrongs++;
+                calling.remove(0);
+            }
+            while ((calling.size() > 0) && (calling.get(0).equals('H'))) {
+                homes++;
+                calling.remove(0);
+            }
+            String row = ("" + String.valueOf(middles) + String.valueOf(wrongs) + String.valueOf(homes)).replace('1', '-').replace('0', ' ');
+            middles = 0; wrongs = 0; homes = 0;
+            rows.add(row);
+        }
+
+        System.out.println("M  W  H");
+        for (String row : rows) {
+            System.out.println(row.charAt(0) + "  " + row.charAt(1) + "  " + row.charAt(2));
+        }
+                
+        return;
+    }
 
     
 
@@ -415,7 +457,7 @@ public class lead_tree {
         // LinkedList<AdjListNode> L = v.getAdjList(); // get adjacency list
         for (lead_vertex s : successors) { // go through all successor vertices
 
-            System.out.println("-------\nsvp = " + s.lead_head + " " + v.lead_head + " " + p.lead_head + "\n" + path + "\t" + calls + "\n");
+            //System.out.println("-------\nsvp = " + s.lead_head + " " + v.lead_head + " " + p.lead_head + "\n" + path + "\t" + calls + "\n");
 
             // System.out.println(path.get(path.size()-1) + "\t" + v.lead_head);
             while (!(path.get(path.size()-1).equals(v.lead_head))) {
