@@ -110,3 +110,7 @@
 ### 11 Nov 2021
 
 * *1 hour 30 minutes* added function for displaying compositions compactly, assisting with debugging incorrect output
+
+### 12 Nov 2021
+
+* *2 hours* debugging false composition output
