@@ -106,3 +106,7 @@
 ### 8 Nov 2021
 
 * *1 hour* supervisor meeting, discussed anomalies in code and further debugging steps
+
+### 11 Nov 2021
+
+* *1 hour 30 minutes* added function for displaying compositions compactly, assisting with debugging incorrect output
