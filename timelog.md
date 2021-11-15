@@ -114,3 +114,13 @@
 ### 12 Nov 2021
 
 * *2 hours* debugging false composition output
+
+### 14 Nov 2021
+
+* *6 hours* debugging false composition output, implemented fix
+
+## Week 7
+
+### 15 Nov 2021
+
+* *1 hour* supervisor meeting
