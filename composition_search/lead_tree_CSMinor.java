@@ -266,7 +266,8 @@ public class lead_tree_CSMinor {
         //if ((5000 <= numrows) && (numrows <= 5600)) {
         if (numrows >= 50) {
             returns++;
-            //System.out.println("return path " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows\n");
+            System.out.println("composition " + returns + " is of length " + (path.size()+1) + " leads = " + numrows + " rows");
+            // System.out.println(path);
 
             
             // formatting path and calls output
@@ -275,13 +276,13 @@ public class lead_tree_CSMinor {
             this.calls.add(lastcall);
 
             for (int i = 0; i < path.size(); i++) {
-                // System.out.println("v.path = " + path + " i = " + i + path.get(i));
+                //System.out.println("v.path = " + path + " i = " + i + path.get(i));
                 output.add(path.get(i));
                 output.add(calls.get(i).toString());
                 stroutput = String.join(" ", output);
             }
-            // System.out.println(stroutput + " 123456");
-            // System.out.println(" ");
+            //System.out.println(stroutput + " 123456");
+            //System.out.println(" ");
             //if ((numrows >= 5000) && (numrows <= 5600)) {
             //if ((numrows == 5600) || (numrows == 5152) || (numrows == 5056) || (numrows == 5184)) {
             //if (numrows == 5056) {
@@ -300,7 +301,7 @@ public class lead_tree_CSMinor {
                 }
 
 
-                System.out.println("-------");
+                System.out.println("-------\n");
             //} 
             //path.remove(path.size()-1);
             calls.remove(path.size()-1);
@@ -535,8 +536,8 @@ public class lead_tree_CSMinor {
         // -1 is used to indicate v was not found through an edge of the graph
     }
 
-    public static void main(String[] args) {
-        System.out.println(lead("153462"));
-    }
+    // public static void main(String[] args) {
+    //     System.out.println(lead("153462"));
+    // }
 
 }
