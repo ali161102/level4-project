@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Scanner;
 
-public class lead_tree {
+public class multipart {
     public lead_vertex root;
     public int duplicates;
     public int returns;
@@ -18,7 +18,7 @@ public class lead_tree {
     public ArrayList<Character> calls;
     public ArrayList<String> path;
 
-    public lead_tree(String r) {
+    public multipart(String r) {
         root = new lead_vertex(r, '-');
         duplicates = 0;
         returns = 0;
