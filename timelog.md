@@ -124,3 +124,43 @@
 ### 15 Nov 2021
 
 * *1 hour* supervisor meeting
+
+### 18 Nov 2021
+
+* *3 hours* debugging, fixed handling of Before calls
+
+## Week 8
+
+### 22 Nov 2021
+
+* *1 hour* supervisor meeting
+
+### 24 Nov 2021
+
+* *1 hour 30 minutes* implement tabular display format for compositions
+
+## Week 9
+
+## Week 10
+
+### 6 Dec 2021
+
+* *30 mins* supervisor meeting, discussed status report
+
+### 10 Dec 2021 
+
+* *2 hours* beginning to generalise search for different methods, preparing for spliced
+
+## Week 11
+
+### 13 Dec 2021
+
+* *30 minutes* supervisor meeting, discussed parallelisation and multipart implementation
+
+### 16 Dec 2021
+
+* *1 hour* instructional meeting on using FATA cluster
+
+### 17 Dec 2021
+
+* *2 hours* wrote-up Semester 1 status report
