@@ -164,3 +164,9 @@
 ### 17 Dec 2021
 
 * *2 hours* wrote-up Semester 1 status report
+
+## Week 12
+
+### 21 Dec 2021
+
+* *4 hours* working on multipart search
