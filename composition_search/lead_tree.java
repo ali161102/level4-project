@@ -71,16 +71,11 @@ public class lead_tree {
 
         for (int i = 0; i < newmethod.size(); i++) {
             for (int j = 0; j < newmethod.get(0).size(); j++) {
-                //System.out.println(method.get(i).get(j));
                 method_array[i][j] = newmethod.get(i).get(j);
             }
         }
-        // System.out.println("generic int[][]" + method_array[0][0]);
-        // return ((int[][]) method);
 
         return(method_array);
-
-        // System.out.println(replacedBrackets);
     }
 
     public static void setAllowedCalls(char[] calls) {
@@ -104,7 +99,6 @@ public class lead_tree {
             currentlead.add(new String(row));
         }
         System.out.println("printLead:________");
-        //currentlead.remove(currentlead.size()-1);
         for (String row : currentlead) {
             System.out.println(row.replace("", " ").trim());
         }
@@ -138,7 +132,7 @@ public class lead_tree {
 
     public void debugprint(lead_vertex v) {
         System.out.println("current lh = " + v.lead_head);
-        // System.out.println(path);
+        System.out.println(path);
         System.out.println(calls);
 
     }
@@ -157,7 +151,6 @@ public class lead_tree {
         // doesn't include next lead head
 
         ArrayList<String> currentlead = new ArrayList<String>();
-        // int[][] method = lead_tree.class_method;
         for (int i=0; i < method[0].length-1; i++) {
             char[] row = new char[method.length];
             for (int j = 0; j < method.length; j++) {
@@ -205,8 +198,6 @@ public class lead_tree {
                 break;
             default:
                 call = 'x';
-                //System.out.println(path);
-                // debugprint(v);
 
         }
 
@@ -217,10 +208,6 @@ public class lead_tree {
         if (call == 'B') {
             v.bob.setVisited(true);
         }
-        // if (!allowed_calls.contains(call)) {
-        //     v.bob.setVisited(true);
-        // }
-
 
         // if (!tenorsTogether(next_lh_bob)) {
         //     v.bob.setVisited(true);
@@ -270,23 +257,15 @@ public class lead_tree {
             if (rung.get(rowInt)) {
                 // one row of this lead was already rung, so return false and set all
                 // the previous rows from this lead back to unrung
-                //System.out.println("duplicate, added = "+added);
+
                 for (int i : added) {
-                    if (i == 13335) {
-                        System.out.println("13335 being set to FALSE");
-                    }
                     rung.set(i, false);
-                    //System.out.println("removing " + i);
-                    //rungstr.remove(row);
                 }
                 
                 return false;
             }
-            //rungstr.add(row);
             rung.set(rowInt);
             added.add(rowInt);
-
-            //System.out.println("added = "+added);
         
         }
         return true;
@@ -295,9 +274,6 @@ public class lead_tree {
     public void removeFromBitSet(String lead_head) {
         ArrayList<String> lead = lead(lead_head);
         for (String row : lead) {
-            if (row.equals("36517482")) {
-                // System.out.println("13335 being set to FALSE");
-            }
             rung.set(rowToInt(row), false);
         }
     }
@@ -306,7 +282,6 @@ public class lead_tree {
         path = new ArrayList<String>();
         calls = new ArrayList<Character>();
         rung = new BitSet(40320);
-        //rungstr = new ArrayList<String>();
     }
 
     public void addToPath(String r) {
@@ -316,28 +291,22 @@ public class lead_tree {
     public void updateForPred() {
         if (!lead.get(0).equals("12345678")) {
             for (String row : lead) {
-                if (row.equals("36517482")) {
-                    System.out.println("13335 being set to FALSE");
-                }
                 rung.set(rowToInt(row), false);
                 //rungstr.remove(row);
             }
         }
-        //calls.remove(calls.size()-1);
+        // calls.remove(calls.size()-1);
         // path.remove(path.size()-1);
     }
 
     private void outputComposition(char lastcall) {
-        // System.out.println(path);
+
         int numrows = ((path.size())*32);
-            // System.out.println("return path " + returns + " is of length " + (v.path.size()) + " leads = " + numrows + " rows\n");
 
         // length is between 5000 and 5600 inclusive, so return path
         //if ((5000 <= numrows) && (numrows <= 5600)) {
         if (numrows >= 5000) {
             returns++;
-            //System.out.println("return path " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows\n");
-
             
             // formatting path and calls output
             ArrayList<String> output = new ArrayList<String>();
@@ -345,33 +314,25 @@ public class lead_tree {
             this.calls.add(lastcall);
 
             for (int i = 0; i < path.size(); i++) {
-                // System.out.println("v.path = " + path + " i = " + i + path.get(i));
+                
                 output.add(path.get(i));
                 output.add(calls.get(i).toString());
                 stroutput = String.join(" ", output);
             }
-            //System.out.println(stroutput + " 12345678");
-            //System.out.println(" ");
-            //if ((numrows >= 5000) && (numrows <= 5600)) {
-            //if ((numrows == 5600) || (numrows == 5152) || (numrows == 5056) || (numrows == 5184)) {
-            //if (numrows == 5056) {
-                System.out.println("composition " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows");
-                //System.out.println("----\nlength " + numrows);
-                ArrayList<Character> changes = condensePlains(calls);
-                // System.out.println(changes);
 
-                outputCalls(changes);
+            // System.out.println(stroutput + " 12345678");
+            // System.out.println(" ");
+            
+            System.out.println("composition " + returns + " is of length " + (path.size()-1) + " leads = " + numrows + " rows");
+              
+            ArrayList<Character> changes = condensePlains(calls);
+            
+
+            outputCalls(changes);
                 
-                // currently seeing if a specific composition is returned
-                // if (numrows == 5056) {
-                //     if (changes.get(0).equals('H') && changes.get(1).equals('H') && changes.get(2).equals('M') && changes.get(3).equals('M')) {
-                //         System.out.println(path);
-                //     }
-                // }
-
-
-                System.out.println("----\n");
-            //} 
+    
+            System.out.println("----\n");
+             
             //path.remove(path.size()-1);
             calls.remove(path.size()-1);
             }    
@@ -433,8 +394,6 @@ public class lead_tree {
     }
 
     
-
-    /** visit vertex v, with predecessor index p, during a dfs */
     private int dynamic_visit(lead_vertex v, lead_vertex p) {
         
         // boolean to indicate whether next step will be to go back up one level to the predecessor
@@ -445,100 +404,28 @@ public class lead_tree {
         v.setPredecessor(p); // set predecessor vertex
         
         generate_lead(v); // creates lead and successors for vertex
-        
         lead_vertex[] successors = v.getSuccessors();
-        // if (v.lead_head.equals("12486753")) {
-        //     path.add("\u001B[31m"+v.lead_head+"\u001B[37m");
-        // } else {
-        path.add(v.lead_head);
-        
-        calls.add(v.call);
 
-        if(v.lead_head.equals("18273456")) {
-            // System.out.println("IT'S THE PROBLEMATIC LEAD AHHHH");
-        }
         // updates the current path and call path at this node
-
-        // System.out.println(v.lead_head + " from " + p.lead_head);
-        //if (path.size() < 5) {
+        path.add(v.lead_head);
+        calls.add(v.call);
         
-        //} else {
-        //    System.out.println("12345678 -> ... -> " + path.get(path.size()-3) + " -> " + path.get(path.size()-2) + " -> " + path.get(path.size()-1));
-         
-        //System.out.println("path: " + path.size() + " " + path);
-        //System.out.println("calls: " + calls.size() + calls + "\n");
-
-        // System.out.println("rungstr = " + rungstr.toString());
-
-        if (v.lead_head.equals("14768523")) {
-            // System.out.println("here");
-            String output = new String();
-            for (String lh : path) {
-                String lhquotes = "\"" + lh + "\", ";
-                output += lhquotes;
-            }
-            // System.out.println(output);
-        }
-
-
-
         // check if tenors together, if not then set successors as visited to not continue search there
         if (!tenorsTogether(v.lead_head)) {
-            
             for (lead_vertex s : successors) {
                 s.setVisited(true);
             }
             backToPred = true;
         }
 
-
-
         // checks for repetition using bitset
         if(!v.lead_head.equals("12345678") && !updateBitSet()) {
             duplicates++;
-            // path.remove(path.size()-1);
-            // calls.remove(calls.size()-1);
-            // System.out.println(path.size()*32 + " rows\t" + duplicates + "\t" + returns);
-            //System.out.println(path);
-
-
-            // System.out.println("returns = " + returns + " duplicates = " + duplicates);
+            
             for (lead_vertex s : successors) {
                 s.setVisited(true);
-
             }
-            // backToPred = true;
         }
-
-
-        // indicates returning path
-        // if (v.lead_head.equals("12345678")) {
-        //     // System.out.println("back to 12345678 " + v.path.size());
-            
-
-        //     for (lead_vertex s : successors) {
-        //         s.setVisited(true);
-
-        //     }
-        //     backToPred = true; 
-            
-
-        // }
-
-        // length is >5600, terminate dfs
-        // if (path.size() > 175) {
-        //     // System.out.println(v.path.size()*32 + " rows\t" + duplicates + "\t" + returns + "\n");
-        //     for (lead_vertex s : successors) {
-        //         s.setVisited(true);
-        //     }
-        //     backToPred = true;
-
-        // }
-
-
-
-
-  
 
         // indicates next step is to go up one level to predecessor
         if (backToPred) {
@@ -547,37 +434,21 @@ public class lead_tree {
         }
 
 
-
-        // LinkedList<AdjListNode> L = v.getAdjList(); // get adjacency list
         for (lead_vertex s : successors) { // go through all successor vertices
 
-            //System.out.println("-------\nsvp = " + s.lead_head + " " + v.lead_head + " " + p.lead_head + "\n" + path + "\t" + calls + "\n");
-
-            // System.out.println(path.get(path.size()-1) + "\t" + v.lead_head);
             String lastInPath = path.get(path.size()-1);
-            //boolean problematic = false;
 
+            // loop for "going up" the tree the correct number of levels
             while (!(lastInPath.equals(v.lead_head))) {
-                
-                // for (String rowcheck : lead(lastInPath)) {
-                //     if (rung.get(rowToInt(rowcheck))) {
-                //         problematic = true;
-                //         break;
-                //     }
-                // }
-                // if (!problematic) {
-                removeFromBitSet(path.get(path.size()-1));
-                // }
+
+                removeFromBitSet(lastInPath);
                 path.remove(path.size()-1);
                 calls.remove(calls.size()-1);
                 lastInPath = path.get(path.size()-1);
-                //System.out.println("INSIDE WHILE - " + path.get(path.size()-1) + "\t" + v.lead_head);
+                
             }
             
-            
-
             if (s.lead_head.equals("12345678")) {
-                //System.out.println(s.lead_head);
                 // indicates that we have a true composition
                 s.setVisited(true);
                 outputComposition(s.call);
@@ -594,7 +465,6 @@ public class lead_tree {
                 }
             }
 
-
             // prevents visiting leads where the tenors are not together
             if (!tenorsTogether(s.lead_head)) {
                 s.setVisited(true);
@@ -602,23 +472,14 @@ public class lead_tree {
             
 
             if (!s.getVisited()) {// if vertex has not been visited
-                // System.out.println(" ");
-
+ 
                 dynamic_visit(s, v); // continue dfs search from it
                 
             }
 
-            // setting the predecessor vertex index to the index of v
-
-
         }
 
-        
-        if (backToPred) {
-            updateForPred();
-        } 
-        // dynamic_visit(p, p.predecessor);
-        // System.out.println("ends");
+
         return (returns);
     }
 
@@ -627,20 +488,11 @@ public class lead_tree {
         generate_lead(rt);
         lead_vertex[] L = rt.getSuccessors();
     
-        //System.out.println(L[0].lead_head + " " + L[1].lead_head);
         for (lead_vertex v : L) {
-            // vertex v = L[0];
-            // System.out.println(v.getVisited());
-            // System.out.println(v.row);
             if (!v.getVisited()) {
                 dynamic_visit(v, rt);
             }
         }
-        // }
-        // v.setVisited(false); // initialise
-
-        // if vertex is not yet visited, then start dfs on vertex
-        // -1 is used to indicate v was not found through an edge of the graph
     }
 
     public static lead_tree initialiseRoot(String lead_head) {
@@ -662,8 +514,8 @@ public class lead_tree {
 
         // single part composition:
         String first_lead_head = "12345678";
-        String method_filename = "yorkshire_s_major.txt";
-        char[] allowed_calls = {'M', 'W', 'H'};
+        String method_filename = "cambridge_surprise_major.txt";
+        // char[] allowed_calls = {'M', 'W', 'H'};
 
 
         readMethod(method_filename, 32);
