@@ -177,6 +177,16 @@
 
 * *5 hours* work on multipart search
 
+### 16 Jan 2022
+
+* *5 hours* multipart search - adapting functions
+
+## Week 14
+
+### 17 Jan 2022
+
+* *30 minutes* supervisor meeting
+
 
 
 
