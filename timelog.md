@@ -187,6 +187,14 @@
 
 * *30 minutes* supervisor meeting
 
+### 18 Jan 2022
+
+* *3 hours* changing logic of multipart search, using "targets" of other part heads rather than rounds
+
+### 21 Jan 2022
+
+* *3 hours* debugging multipart code
+
 
 
 
