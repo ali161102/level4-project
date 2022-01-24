@@ -195,6 +195,9 @@
 
 * *3 hours* debugging multipart code
 
+### 23 Jan 2022
+
+* *8 hours* more debugging of multipart search, appears to be functional 
 
 
 
