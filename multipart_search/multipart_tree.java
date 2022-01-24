@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Scanner;
 
+import javax.management.remote.TargetedNotification;
+
 public class multipart_tree {
 
     public multipart_vertex root;
@@ -17,13 +19,17 @@ public class multipart_tree {
     public static ArrayList<Character> allowed_calls; // eg B,M, H
 
     public BitSet rung;
+    public ArrayList<String> rungrows;
 
     // store one lead for each part
     public ArrayList<ArrayList<String>> leads;
 
+    // the 'targets' for the "main part" are the other part heads
+    public ArrayList<String> targets;
+
     public ArrayList<Character> calls;
 
-    // store the path of lead heads for each part
+        // store the path of lead heads for each part
     public ArrayList<ArrayList<String>> paths;
 
     public multipart_tree(ArrayList<String> rows) {
@@ -142,6 +148,7 @@ public class multipart_tree {
 
     }
 
+
     public static Boolean tenorsTogether(String lh) {
         // 17864523 -> 8765324
         // 21357642
@@ -171,10 +178,10 @@ public class multipart_tree {
 
     public void generate_leads(multipart_vertex v) {
 
-        System.out.println("starting generate_leads with vertex" + v.lead_heads);
+        // System.out.println("starting generate_leads with vertex" + v.lead_heads);
         // includes next lead head
 
-        ArrayList<String> currentlead = new ArrayList<String>();
+        //ArrayList<String> currentlead = new ArrayList<String>();
         ArrayList<ArrayList<String>> currentleads = new ArrayList<ArrayList<String>>();
 
         // all next lead heads (one per part) if the next call is plain/bob
@@ -183,7 +190,9 @@ public class multipart_tree {
 
         // for each lead head in this vertex's lead_heads array
         for (String lead_head : v.lead_heads) {
-            System.out.println("for " + lead_head + " in " + v.lead_heads);
+            ArrayList<String> currentlead = new ArrayList<String>();
+
+            // System.out.println("for " + lead_head + " in " + v.lead_heads);
             // generate the respective lead
             for (int i = 0; i < method[0].length; i++) {
                 char[] row = new char[method.length];
@@ -191,21 +200,25 @@ public class multipart_tree {
                     row[method[j][i]] = lead_head.charAt(j);
                 }
                 currentlead.add(new String(row));
-                System.out.println("added to currentlead - " + currentlead.get(currentlead.size() - 1));
+                // System.out.println("added to currentlead - " + currentlead.get(currentlead.size() - 1));
             }
             // currentlead has the whole lead + next leadhead of a plain
 
             String next_lh_plain = currentlead.get(currentlead.size() - 1).toString();
-            System.out.println("next_lh_plain = " + next_lh_plain);
+            // System.out.println("next_lh_plain = " + next_lh_plain);
 
             next_lhs_plain.add(next_lh_plain);
             next_lhs_bob.add("" + next_lh_plain.charAt(0) + next_lh_plain.charAt(3) + next_lh_plain.substring(1, 3)
                     + next_lh_plain.substring(4));
 
+            //System.out.println("next_lhs_plain now =" + next_lhs_plain);
+            //System.out.println("next_lhs_bob   now =" + next_lhs_bob);
+
             // remove the next lead head from currentleads
             currentlead.remove(currentlead.size() - 1);
 
             currentleads.add(currentlead);
+            //System.out.println("currentleads.add [" + currentlead.get(0) + ", ..., " + currentlead.get(currentlead.size() - 1) + "]" + " length " + currentlead.size());
 
         }
 
@@ -245,6 +258,8 @@ public class multipart_tree {
 
         // System.out.println(next_lh_plain + " " + next_lh_bob);
         leads = currentleads;
+        
+        // System.out.println("generate_leads() finished, leads =" + currentleads);
 
     }
 
@@ -275,39 +290,51 @@ public class multipart_tree {
         return value;
     }
 
-    public boolean updateBitSet(ArrayList<ArrayList<String>> leads) {
+    public boolean updateBitSet() {
         // temporary array for ints being added in this lead
         ArrayList<Integer> added = new ArrayList<Integer>();
+        ArrayList<String> toAdd = new ArrayList<String>();
 
         for (ArrayList<String> lead : leads) {
-            for (String row : lead) {
+            // System.out.println("adding lead with head " + lead.get(0) + " to toAdd");
+            toAdd.addAll(lead);
+        }
 
-                int rowInt = rowToInt(row);
+        for (String row : toAdd) {
 
-                if (rung.get(rowInt)) {
-                    // one row of this lead was already rung, so return false and set all
-                    // the previous rows that were added back to false
+            int rowInt = rowToInt(row);
 
-                    for (int i : added) {
-                        rung.set(i, false);
-                    }
+            if (rung.get(rowInt)) {
+                // one row of this lead was already rung, so return false and set all
+                // the previous rows that were added back to false
 
-                    return false;
-
+                for (int i : added) {
+                    rung.set(i, false);
+                    // rungInts.remove(i);
                 }
-                rung.set(rowInt);
-                added.add(rowInt);
+
+                return false;
 
             }
+            rung.set(rowInt);
+            // rungInts.add(rowInt);
+            added.add(rowInt);
 
         }
+
+        
         return true;
     }
 
     public void removeFromBitSet(String lead_head) {
+        // System.out.println("removing lead with head " + lead_head + " from BitSet");
         ArrayList<String> lead = lead(lead_head);
         for (String row : lead) {
-            rung.set(rowToInt(row), false);
+            int rowInt = rowToInt(row);
+            rung.set(rowInt, false);
+            // if (rungInts.contains(rowInt)) {
+            //     rungInts.remove(rowInt);
+            // }
         }
     }
 
@@ -318,8 +345,15 @@ public class multipart_tree {
             path.add(part_head);
             paths.add(path);
         }
+
+        targets = new ArrayList<String>();
+        // the targets are all of the other part heads
+        for (int i = 1; i < part_heads.size(); i++) {
+            targets.add(part_heads.get(i));
+        }    
         calls = new ArrayList<Character>();
         rung = new BitSet(40320);
+        rungrows = new ArrayList<String>();
     }
 
     public void addToPaths(ArrayList<String> r) {
@@ -334,7 +368,11 @@ public class multipart_tree {
         for (ArrayList<String> lead : leads) {
             if (!lead.get(0).equals("12345678")) {
                 for (String row : lead) {
-                    rung.set(rowToInt(row), false);
+                    int rowInt = rowToInt(row);
+                    rung.set(rowInt, false);
+                    // if (rungInts.contains(rowInt)) {
+                    //     rungInts.remove(rowInt);
+                    // }
                     // rungstr.remove(row);
                 }
             }
@@ -343,13 +381,17 @@ public class multipart_tree {
         // path.remove(path.size()-1);
     }
 
-    private void outputComposition(char lastcall) {
+    private void outputComposition(char lastcall, ArrayList<String> last_leadheads) {
 
-        int numrows = ((paths.get(0).size()) * 32);
+        System.out.println(paths);
+        System.out.println(last_leadheads);
+
+        int numparts = (paths.size());
+        int numrows = ((paths.get(0).size()) * numparts * 32);
 
         // length is between 5000 and 5600 inclusive, so return path
-        // if ((5000 <= numrows) && (numrows <= 5600)) {
-        if (numrows >= 5000) {
+        if ((5000 <= numrows) && (numrows <= 5600)) {
+        //if (numrows >= 5000) {
             returns++;
 
             // formatting path and calls output
@@ -364,18 +406,36 @@ public class multipart_tree {
                 stroutput = String.join(" ", output);
             }
 
-            // System.out.println(stroutput + " 12345678");
+            System.out.println(stroutput + last_leadheads.get(0));
             // System.out.println(" ");
 
             System.out.println(
-                    "composition " + returns + " is of length " + (paths.get(0).size() - 1) + " leads = " + numrows
+                    "\ncomposition " + returns + " is of length " + (paths.get(0).size() - 1) + " leads (" + numparts + " parts) = " + numrows
                             + " rows");
 
             ArrayList<Character> changes = condensePlains(calls);
 
-            outputCalls(changes);
+            // tabular output formatting
+            boolean hasBefore = false;
+            if (calls.contains('B')) {
+                hasBefore = true;
+            }
 
-            System.out.println("----\n");
+            if (hasBefore) {
+                System.out.println("B  M  W  H \t" + paths.get(0).get(0));
+            } else {
+                System.out.println("M  W  H  " + paths.get(0).get(0));
+            }
+
+            for (int i = 0; i<paths.size(); i++) {
+                outputCalls(changes);
+
+                System.out.println("-------\t " + last_leadheads.get(i));
+            }
+        
+            // System.out.println("\t\t" + paths.get(0).get(0));
+
+            
 
             // path.remove(path.size()-1);
             calls.remove(calls.size() - 1);
@@ -431,12 +491,12 @@ public class multipart_tree {
         }
 
         if (hasBefore) {
-            System.out.println("B  M  W  H");
+            // System.out.println("B  M  W  H");
             for (String row : rows) {
                 System.out.println(row.charAt(0) + "  " + row.charAt(1) + "  " + row.charAt(2) + "  " + row.charAt(3));
             }
         } else {
-            System.out.println("M  W  H");
+            // System.out.println("M  W  H");
             for (String row : rows) {
                 System.out.println(row.charAt(0) + "  " + row.charAt(1) + "  " + row.charAt(2));
             }
@@ -446,6 +506,10 @@ public class multipart_tree {
     }
 
     private int dynamic_visit(multipart_vertex v, multipart_vertex p) {
+
+        System.out.println("d_v: v=" + v.lead_heads +", p=" + p.lead_heads);
+        // System.out.println("rung - " + rung.cardinality());
+        System.out.println(paths.get(0).size() + " " + calls.size() + " = (" + paths.get(0).size()*96 + ")");
 
         // boolean to indicate whether next step will be to go back up one level to the
         // predecessor
@@ -462,8 +526,9 @@ public class multipart_tree {
             paths.get(i).add(v.lead_heads.get(i));
         }
 
-        /// path.add(v.lead_head);
+        
         calls.add(v.call);
+
 
         // check if tenors together, if not then set successors as visited to not
         // continue search there
@@ -472,12 +537,13 @@ public class multipart_tree {
                 for (multipart_vertex s : successors) {
                     s.setVisited(true);
                 }
+                backToPred = true;  
             }
-            backToPred = true;
+            
         }
 
         // checks for repetition using bitset
-        if (!leads.get(0).get(0).equals("12345678") && !updateBitSet(leads)) {
+        if (!updateBitSet()) {
             duplicates++;
 
             for (multipart_vertex s : successors) {
@@ -493,43 +559,65 @@ public class multipart_tree {
 
         for (multipart_vertex s : successors) { // go through all successor vertices
 
+            //System.out.println("s= " + s.lead_heads);
+            //System.out.println("v= " + v.lead_heads);
+            //System.out.println("p= " + p.lead_heads);    
             // last lead head in the "main" path
             String lastInPath = paths.get(0).get(paths.get(0).size() - 1);
 
             // loop for "going up" the tree the correct number of levels
             while (!(lastInPath.equals(v.lead_heads.get(0)))) {
 
-                removeFromBitSet(lastInPath);
+                
+                System.out.println("\n !!! " + lastInPath + " NOT= " + v.lead_heads.get(0));
+                System.out.println("so now we remove " + lastInPath);
+
                 for (ArrayList<String> path : paths) {
+                    removeFromBitSet(path.get(path.size() - 1));
                     path.remove(path.size() - 1);
                 }
 
                 calls.remove(calls.size() - 1);
                 lastInPath = paths.get(0).get(paths.get(0).size() - 1);
 
+                System.out.println("lastinpath now " + lastInPath);
+
+            }
+
+            // System.out.println("does " + targets + " contain " + s.lead_heads.get(0));
+            if (targets.contains(s.lead_heads.get(0))) {
+                // indicates that we have a true composition? we'll see.........................
+                s.setVisited(true);
+                outputComposition(s.call, s.lead_heads);
             }
 
             for (String successor_lead_head : s.lead_heads) {
-                if (successor_lead_head.equals("12345678")) {
-                    // indicates that we have a true composition
-                    s.setVisited(true);
-                    outputComposition(s.call);
-                }
+                // if (successor_lead_head.equals("12345678")) {
+                //     // indicates that we have a true composition
+                //     s.setVisited(true);
+                //     outputComposition(s.call);
+                // }
 
                 // prevents visiting a lead where the lead head has already been rung (false
                 // composition)
-                if ((rung.get(rowToInt(successor_lead_head))) && (!successor_lead_head.equals("12345678"))) {
-                    s.setVisited(true);
-                }
+
+                // if (rung.get(rowToInt(successor_lead_head)) && !successor_lead_head.equals("12345678")) {
+                //     System.out.println("s.sV - " + successor_lead_head + " next lh already rang");
+                //     s.setVisited(true);
+                // }
 
                 for (String next_row : lead(successor_lead_head)) {
-                    if (rung.get(rowToInt(next_row))) {
+                    if (rung.get(rowToInt(next_row)) && !next_row.equals("12345678")) {
+                        
                         s.setVisited(true);
                     }
                 }
-
+                    if (s.getVisited()) {
+                        //System.out.println("s.sV - row(s) in " + successor_lead_head + " already rang");
+                    }
                 // prevents visiting leads where the tenors are not together
                 if (!tenorsTogether(successor_lead_head)) {
+                    //System.out.println("s.sV - " + successor_lead_head + " tenors not together");
                     s.setVisited(true);
                 }
             }
@@ -569,16 +657,23 @@ public class multipart_tree {
         G.initialisePaths(part_heads);
         // G.addToPaths(part_heads);
         G.generate_leads(G.root);
-        G.updateBitSet(G.leads);
+        G.updateBitSet();
 
         return (G);
     }
 
     public static void main(String[] args) {
 
-        // single part composition:
-        ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "12534678", "12453678"));
-        String method_filename = "methods/cambridge_surprise_major.txt";
+        // multipart composition:
+
+        // define part heads (also used as targets?)
+        ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "12364578", "12356478"));
+
+        // ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "13526478", "15634278", "16452378", "14263578"));
+        // the method, in .txt form exported from complib
+        String method_filename = "methods/yorkshire_surprise_major.txt";
+
+
         // char[] allowed_calls = {'M', 'W', 'H'};
 
         readMethod(method_filename, 32);
