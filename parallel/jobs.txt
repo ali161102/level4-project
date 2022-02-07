@@ -1,0 +1,2 @@
+java ../composition_search/lead_tree 12345678
+java ../composition_search/lead_tree 14235678
