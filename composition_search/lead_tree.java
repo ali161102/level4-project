@@ -436,17 +436,28 @@ public class lead_tree {
 
         for (lead_vertex s : successors) { // go through all successor vertices
 
+
+
+            //System.out.println("s= " + s.lead_head);
+            //System.out.println("v= " + v.lead_head);
+            //System.out.println("p= " + p.lead_head);  
+
+
             String lastInPath = path.get(path.size()-1);
 
             // loop for "going up" the tree the correct number of levels
             while (!(lastInPath.equals(v.lead_head))) {
-
+                // System.out.println("path = " + path);
+                //System.out.println("!!! " + lastInPath + " NOT= " + v.lead_head);
+                //System.out.println("so now we remove " + lastInPath);
                 removeFromBitSet(lastInPath);
                 path.remove(path.size()-1);
                 calls.remove(calls.size()-1);
                 lastInPath = path.get(path.size()-1);
-                
+                //System.out.println("lastinpath now " + lastInPath);
             }
+            
+            //System.out.println("finish with lastinpath " + lastInPath);
             
             if (s.lead_head.equals("12345678")) {
                 // indicates that we have a true composition
@@ -514,7 +525,7 @@ public class lead_tree {
 
         // single part composition:
         String first_lead_head = "12345678";
-        String method_filename = "cambridge_surprise_major.txt";
+        String method_filename = "methods/cambridge_surprise_major.txt";
         // char[] allowed_calls = {'M', 'W', 'H'};
 
 
