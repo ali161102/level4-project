@@ -145,7 +145,7 @@
 
 ### 6 Dec 2021
 
-* *30 mins* supervisor meeting, discussed status report
+* *30 minutes* supervisor meeting, discussed status report
 
 ### 10 Dec 2021 
 
@@ -199,5 +199,43 @@
 
 * *8 hours* more debugging of multipart search, appears to be functional 
 
+## Week 15
 
+### 24 Jan 2022
+
+* *30 minutes* supervisor meeting
+
+### 26 Jan 2022
+
+* *2 hours* research on RecursiveAction, other Java parallelisation
+
+### 28 Jan 2022
+
+* *4 hours* better output for multipart search, show part heads etc
+
+## Week 16
+
+### 31 Jan 2022
+
+* *30 minutes* supervisor meeting
+
+### 2 Feb 2022
+
+* *1 hour* set up access to FATA cluster, learn to run programs etc
+
+### 4 Feb 2022
+
+* *4 hours* trying to set up SSH keys for FATA cluster/fatanode-head
+
+### 6 Feb 2022
+
+* *2 hours* reading into/trying to use GNU-parallel
+
+* *2 hours* set up SSH key for ssh1, unsure about cluster keys
+
+## Week 17
+
+### 7 Feb 2022
+
+* *30 minutes* supervisor meeting
 
