@@ -525,7 +525,7 @@ public class lead_tree {
 
         // single part composition:
         String first_lead_head = "12345678";
-        String method_filename = "methods/cambridge_surprise_major.txt";
+        String method_filename = "cambridge_surprise_major.txt";
         // char[] allowed_calls = {'M', 'W', 'H'};
 
 
