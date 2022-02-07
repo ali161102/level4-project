@@ -383,8 +383,8 @@ public class multipart_tree {
 
     private void outputComposition(char lastcall, ArrayList<String> last_leadheads) {
 
-        System.out.println(paths);
-        System.out.println(last_leadheads);
+        // System.out.println(paths);
+        // System.out.println(last_leadheads);
 
         int numparts = (paths.size());
         int numrows = ((paths.get(0).size()) * numparts * 32);
@@ -406,11 +406,11 @@ public class multipart_tree {
                 stroutput = String.join(" ", output);
             }
 
-            System.out.println(stroutput + last_leadheads.get(0));
+            // System.out.println(stroutput + last_leadheads.get(0));
             // System.out.println(" ");
 
             System.out.println(
-                    "\ncomposition " + returns + " is of length " + (paths.get(0).size() - 1) + " leads (" + numparts + " parts) = " + numrows
+                    "\ncomposition " + returns + " is of length " + (paths.get(0).size()) + " leads (" + numparts + " parts) = " + numrows
                             + " rows");
 
             ArrayList<Character> changes = condensePlains(calls);
@@ -507,9 +507,9 @@ public class multipart_tree {
 
     private int dynamic_visit(multipart_vertex v, multipart_vertex p) {
 
-        System.out.println("d_v: v=" + v.lead_heads +", p=" + p.lead_heads);
+       
         // System.out.println("rung - " + rung.cardinality());
-        System.out.println(paths.get(0).size() + " " + calls.size() + " = (" + paths.get(0).size()*96 + ")");
+        
 
         // boolean to indicate whether next step will be to go back up one level to the
         // predecessor
@@ -559,9 +559,7 @@ public class multipart_tree {
 
         for (multipart_vertex s : successors) { // go through all successor vertices
 
-            //System.out.println("s= " + s.lead_heads);
-            //System.out.println("v= " + v.lead_heads);
-            //System.out.println("p= " + p.lead_heads);    
+
             // last lead head in the "main" path
             String lastInPath = paths.get(0).get(paths.get(0).size() - 1);
 
@@ -569,8 +567,6 @@ public class multipart_tree {
             while (!(lastInPath.equals(v.lead_heads.get(0)))) {
 
                 
-                System.out.println("\n !!! " + lastInPath + " NOT= " + v.lead_heads.get(0));
-                System.out.println("so now we remove " + lastInPath);
 
                 for (ArrayList<String> path : paths) {
                     removeFromBitSet(path.get(path.size() - 1));
@@ -580,7 +576,6 @@ public class multipart_tree {
                 calls.remove(calls.size() - 1);
                 lastInPath = paths.get(0).get(paths.get(0).size() - 1);
 
-                System.out.println("lastinpath now " + lastInPath);
 
             }
 
@@ -647,7 +642,7 @@ public class multipart_tree {
 
     public static multipart_tree initialiseRoot(ArrayList<String> part_heads) {
 
-        System.out.println("initialiseRoot " + part_heads);
+        // System.out.println("initialiseRoot " + part_heads);
         // lead_tree G = new lead_tree("12345678");
         // G.initialisePath();
         // G.addToPath("12345678");
@@ -667,11 +662,12 @@ public class multipart_tree {
         // multipart composition:
 
         // define part heads (also used as targets?)
-        ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "12364578", "12356478"));
+        //ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "12436578"));
 
-        // ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "13526478", "15634278", "16452378", "14263578"));
+        ArrayList<String> part_heads = new ArrayList<String>(Arrays.asList("12345678", "13526478", "15634278", "16452378", "14263578"));
+
         // the method, in .txt form exported from complib
-        String method_filename = "methods/yorkshire_surprise_major.txt";
+        String method_filename = "methods/cambridge_surprise_major.txt";
 
 
         // char[] allowed_calls = {'M', 'W', 'H'};
