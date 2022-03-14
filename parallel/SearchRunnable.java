@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.BitSet;
 
+import javax.print.attribute.standard.OutputDeviceAssigned;
+
 class SearchRunnable implements Runnable {
+    public int index;
     // stuff for storing the starting data
     public lead_vertex root;
     public static int[][] method; // the ringing method used to search
@@ -12,11 +15,15 @@ class SearchRunnable implements Runnable {
 
     public ArrayList<String> lead;
 
-    public SearchRunnable(int[][] method, StartData sd) {
+    public ArrayList<ArrayList<Character>> compositions;
+
+    public SearchRunnable(int index, int[][] method, StartData sd) {
+        this.index = index;
         SearchRunnable.method = method;
         this.calls = sd.calls;
         this.path = sd.path;
         this.rung = sd.rung;
+        this.compositions = new ArrayList<ArrayList<Character>>();
         // constructor for the starting data
     }
 
@@ -135,31 +142,31 @@ class SearchRunnable implements Runnable {
         }
     }
 
-    private void outputComposition(char lastcall) {
+    private void outputComposition(ArrayList<Character> calls) {
 
-        int numrows = ((path.size())*32);
+        int numrows = ((calls.size()+1)*32);
 
         // length is between 5000 and 5600 inclusive, so return path
-        //if ((5000 <= numrows) && (numrows <= 5600)) {
-        if (numrows >= 5000) {
+        if ((5000 <= numrows) && (numrows <= 5600)) {
+        //if (numrows >= 5000) {
             //returns++;
             
             // formatting path and calls output
             ArrayList<String> output = new ArrayList<String>();
             String stroutput = new String();
-            this.calls.add(lastcall);
+            //this.calls.add(lastcall);
 
-            for (int i = 0; i < path.size(); i++) {
+            // for (int i = 0; i < path.size(); i++) {
                 
-                output.add(path.get(i));
-                output.add(calls.get(i).toString());
-                stroutput = String.join(" ", output);
-            }
+            //     output.add(path.get(i));
+            //     output.add(calls.get(i).toString());
+            //     stroutput = String.join(" ", output);
+            // }
 
             // System.out.println(stroutput + " 12345678");
             // System.out.println(" ");
             
-            System.out.println("composition is of length " + (path.size()-1) + " leads = " + numrows + " rows");
+            System.out.println("composition is of length " + (calls.size()+1) + " leads = " + numrows + " rows");
               
             ArrayList<Character> changes = condensePlains(calls);
             
@@ -170,7 +177,7 @@ class SearchRunnable implements Runnable {
             System.out.println("----\n");
              
             //path.remove(path.size()-1);
-            calls.remove(path.size()-1);
+            //calls.remove(path.size()-1);
             }    
     }  
 
@@ -355,8 +362,20 @@ class SearchRunnable implements Runnable {
             if (s.lead_head.equals("12345678")) {
                 // indicates that we have a true composition
                 s.setVisited(true);
-                outputComposition(s.call);
+
+                // make a copy of the current array of calls and add to list of compositions
+                ArrayList<Character> composition = (ArrayList<Character>) calls.clone();
+                composition.add(s.call);
+                
+                int numrows = ((composition.size()+1)*32);
+
+                // length is between 5000 and 5600 inclusive, so add composition
+                if ((5000 <= numrows) && (numrows <= 5600)) {
+                    compositions.add(composition);
+                    System.out.println("add comp to " + index + ": " + compositions.size());
+                }
             }
+
             
             // prevents visiting a lead where the lead head has already been rung (false composition)
             if ((rung.get(rowToInt(s.lead_head))) && (!s.lead_head.equals("12345678"))) {
@@ -397,6 +416,9 @@ class SearchRunnable implements Runnable {
             }
         }
 
+        for (ArrayList<Character> composition : compositions) {
+            outputComposition(composition);
+        }
     }
 }
 
