@@ -147,7 +147,7 @@ public class lead_tree {
         return false;
     }
 
-    public ArrayList<String> lead(String lead_head) {
+    public static ArrayList<String> lead(String lead_head) {
         // doesn't include next lead head
 
         ArrayList<String> currentlead = new ArrayList<String>();
@@ -161,6 +161,14 @@ public class lead_tree {
 
         return(currentlead);
 
+    }
+
+    public static String next_lh_plain(String lh) {
+        char[] row = new char[method.length];
+        for (int bell = 0; bell < method.length; bell++) {
+            row[method[bell][method[0].length-1]] = lh.charAt(bell);
+        }
+        return(new String(row));
     }
 
     public void generate_lead(lead_vertex v) {
@@ -269,6 +277,32 @@ public class lead_tree {
         
         }
         return true;
+    }
+
+    public static BitSet addToBitSet(BitSet rung, ArrayList<String> lead) {
+
+        // temporary array for ints being added in this lead
+        ArrayList<Integer> added = new ArrayList<Integer>();
+
+        for (String row : lead) {
+            
+            int rowInt = rowToInt(row);
+
+            if (rung.get(rowInt)) {
+                // one row of this lead was already rung, so return false and set all
+                // the previous rows from this lead back to unrung
+
+                for (int i : added) {
+                    rung.set(i, false);
+                }
+                
+                return null;
+            }
+            rung.set(rowInt);
+            added.add(rowInt);
+        
+        }
+        return rung;
     }
 
     public void removeFromBitSet(String lead_head) {
@@ -393,6 +427,82 @@ public class lead_tree {
         return;
     }
 
+    private static ArrayList<Character> create_input() {
+        ArrayList<Character> calls = new ArrayList<Character>();
+
+        calls.add('p');
+        calls.add('p');
+        calls.add('b');
+        calls.add('p');
+
+        return(calls);
+    }
+
+    private static Boolean create_data(ArrayList<Character> input) {
+        BitSet rung = new BitSet(40320);
+        ArrayList<String> path = new ArrayList<String>();
+        ArrayList<Character> calls = new ArrayList<Character>();
+
+        // initialise the BitSet and path with the starting lead (rounds)
+        path.add("12345678");
+        rung = addToBitSet(rung, lead("12345678"));
+        
+        String current_lh = "12345678"; // starts at rounds
+
+        // for each call in input:
+        for (char call : input) {
+            String next_lh_plain = next_lh_plain(current_lh); // the next lead head if no bob
+
+            if (call == 'p') {
+                // plain at end of lead
+                calls.add('p');
+                current_lh = next_lh_plain;
+            } else {
+                if (call == 'b') {
+                    // bob at end of lead
+                    current_lh = "" + next_lh_plain.charAt(0) + next_lh_plain.charAt(3) + next_lh_plain.substring(1, 3) + next_lh_plain.substring(4);
+
+                    // determine what type of bob it is by the position of the tenor bell
+                    switch (current_lh.indexOf("8")) {
+                        case 5:
+                            calls.add('M');
+                            break;
+                        case 6:
+                            calls.add('W');
+                            break;
+                        case 7:
+                            calls.add('H');
+                            break;
+                        case 2:
+                            calls.add('B');
+                            break;
+                        default:
+                            calls.add('x');
+
+                    }
+                }
+            }
+
+            if (!tenorsTogether(current_lh)) {
+                // this pattern of calls is not one that can be explored in the search, so stop here
+                return false;
+            }
+
+            path.add(current_lh);
+            rung = addToBitSet(rung, lead(current_lh));
+
+            if (rung == null) {
+                // this pattern of calls leads to internal falseness, which is not included
+                // in our search, so stop here
+                return false;
+            }
+
+        }
+        
+        System.out.println(path + "\n" + calls + "\n" + rung);
+        return true;
+    }
+
     
     private int dynamic_visit(lead_vertex v, lead_vertex p) {
         
@@ -494,7 +604,7 @@ public class lead_tree {
         return (returns);
     }
 
-    /** carry out a depth first search/traversal of the graph */
+    // carry out a depth first search from rt, our chosen root
     public void dynamic_dfs(lead_vertex rt) {
         generate_lead(rt);
         lead_vertex[] L = rt.getSuccessors();
@@ -525,7 +635,7 @@ public class lead_tree {
 
         // single part composition:
         String first_lead_head = "12345678";
-        String method_filename = "../methods/cambridge_surprise_major.txt";
+        String method_filename = "cambridge_surprise_major.txt";
         // char[] allowed_calls = {'M', 'W', 'H'};
 
 
@@ -534,7 +644,7 @@ public class lead_tree {
 
         lead_tree G = initialiseRoot(first_lead_head); 
         
-
+        // create_data(create_input());
         G.dynamic_dfs(G.root);
         System.out.println("total number of compositions = " + G.returns);
 
