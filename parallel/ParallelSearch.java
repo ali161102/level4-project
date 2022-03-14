@@ -234,8 +234,8 @@ public class ParallelSearch {
         String method_filename = "../methods/cambridge_surprise_major.txt";
         int lead_length = 32;
 
-        int len_paths = 4; // length of call strings (eg 'ppbp' = 4)
-        int num_paths = 8; // number of call strings to generate
+        int len_paths = 6; // length of call strings (eg 'ppbp' = 4)
+        int num_paths = 32; // number of call strings to generate
 
         // ****
 
