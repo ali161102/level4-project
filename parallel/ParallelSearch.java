@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ParallelSearch {
 
-    private static int[][] method;
+       private static int[][] method;
 
     /* read in file and create method representation */
 
@@ -237,19 +237,23 @@ public class ParallelSearch {
         int len_paths = 4; // length of call strings (eg 'ppbp' = 4)
         int num_paths = 8; // number of call strings to generate
 
+        // ****
+
 
         readMethod(method_filename, lead_length);
 
+        int num_started = 0;
+
         for (String path : create_input(num_paths, len_paths)) {
             
-
             StartData sd = create_data(path);
 
             if (sd != null) {
-                SearchRunnable sr = new SearchRunnable(method, sd);
+                num_started++;
+                SearchRunnable sr = new SearchRunnable(num_started, method, sd);
                 System.out.println(sr.path);
 
-                Thread t = new Thread(sr); // pass the Runnable object while new creating Thread object.
+                Thread t = new Thread(sr); 
                 t.start();                
                 
             }
