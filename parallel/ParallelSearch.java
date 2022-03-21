@@ -231,11 +231,12 @@ public class ParallelSearch {
     public static void main(String[] args) {
         
         /* configuration */
-        String method_filename = "../methods/cambridge_surprise_major.txt";
+        String method_filename = "../methods/" + args[0] + ".txt";
         int lead_length = 32;
 
-        int len_paths = 6; // length of call strings (eg 'ppbp' = 4)
-        int num_paths = 32; // number of call strings to generate
+        int len_paths = Integer.parseInt(args[1]); // length of call strings (eg 'ppbp' = 4)
+        int num_paths = Integer.parseInt(args[2]); // number of call strings to generate
+
 
         // ****
 
@@ -244,7 +245,10 @@ public class ParallelSearch {
 
         int num_started = 0;
 
-        for (String path : create_input(num_paths, len_paths)) {
+        ArrayList<String> input_paths = create_input(num_paths, len_paths);
+        System.out.println(num_paths + " of length " + len_paths + " -> " + input_paths.size() + " paths");
+
+        for (String path : input_paths) {
             
             StartData sd = create_data(path);
 
