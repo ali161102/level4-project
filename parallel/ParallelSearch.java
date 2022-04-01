@@ -62,10 +62,10 @@ public class ParallelSearch {
 
     /* generate the starting data for the threads */
     
-    private static ArrayList<String> create_input(int num_paths, int len_paths) {
+    private static ArrayList<String> create_input(int len_paths) {
         ArrayList<String> paths = new ArrayList<String>();
 
-        for (int i = 0; i < num_paths; i++) {
+        for (int i = 0; i < (Math.pow(2, len_paths)); i++) {
             String str = Integer.toBinaryString(i);
             while (str.length() < len_paths) {
                 str = "0" + str;
@@ -229,42 +229,73 @@ public class ParallelSearch {
     }
 
     public static void main(String[] args) {
-        
-        /* configuration */
-        String method_filename = "../methods/" + args[0] + ".txt";
+        long startTime = System.currentTimeMillis();
+
+        String method_filename = "";
         int lead_length = 32;
+        int len_paths; // length of call strings (eg 'ppbp' = 4)
 
-        int len_paths = Integer.parseInt(args[1]); // length of call strings (eg 'ppbp' = 4)
-        int num_paths = Integer.parseInt(args[2]); // number of call strings to generate
+    
+        if (args.length == 0) {
 
+            method_filename = "methods/cambridge_surprise_major.txt";
+            lead_length = 32;
 
-        // ****
+            len_paths = 5;
+
+        
+        } else {
+            /* configuration - can be done from command line*/
+            method_filename = "../methods/" + args[0] + ".txt";
+            lead_length = 32;
+
+            len_paths = Integer.parseInt(args[1]);
+            
+
+            // ****
+        }
+        
+        System.out.println(java.lang.Thread.activeCount() + " threads running at start");
+        System.out.println(Runtime.getRuntime().availableProcessors() + " processors available");
 
 
         readMethod(method_filename, lead_length);
 
         int num_started = 0;
 
-        ArrayList<String> input_paths = create_input(num_paths, len_paths);
-        System.out.println(num_paths + " of length " + len_paths + " -> " + input_paths.size() + " paths");
+        ArrayList<String> input_paths = create_input(len_paths);
 
+        //System.out.println(input_paths);
         for (String path : input_paths) {
             
             StartData sd = create_data(path);
 
             if (sd != null) {
                 num_started++;
+                //System.out.println(path);
                 SearchRunnable sr = new SearchRunnable(num_started, method, sd);
-                System.out.println(sr.path);
+                //System.out.println(sr.path);
 
                 Thread t = new Thread(sr); 
-                t.start();                
+                t.start();      
+                System.out.println(java.lang.Thread.activeCount() + " active threads");  
+
                 
             }
             
             
         }
+        System.out.println("length " + len_paths + " -> " + num_started + " paths");
 
+        
+        while (java.lang.Thread.activeCount() > 1) {
+            
+        }
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println((endTime - startTime) + " milliseconds");
+        //System.out.println(java.lang.Thread.activeCount());
         // SearchRunnable r = new SearchRunnable(null, null, null, null);
         // Thread t = new Thread(r); // pass the Runnable object while new creating Thread object.
         // t.start();
