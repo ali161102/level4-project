@@ -13,13 +13,13 @@
 
 ### 2 Oct 2021
 
-* *30 minutes* background reading into bell ringing
+* *0.5 hour* background reading into bell ringing
 
 ## Week 2
 
 ### 4 Oct 2021
 
-* *1 hour 30 minutes* Initial meeting with project supervisor
+* *1.5 hours* Initial meeting with project supervisor
 
 ### 8 Oct 2021
 
@@ -27,7 +27,7 @@
 
 ### 9 Oct 2021
 
-* *2 hours 30 minutes* Continuing decision tree search code
+* *2.5 hours* Continuing decision tree search code
 
 ### 10 Oct 2021
 
@@ -37,25 +37,20 @@
 
 ### 11 Oct 2021
 
-* *2 hours 30 minutes* finalising digraph simple path search
-
+* *2.5 hours* finalising digraph simple path search
 * *1 hour* supervisor meeting
-
 * *1 hour* making changes to digraph simple path search
 
 ### 16 Oct 2021
 
-* *1 hour 30 minutes* reading into change-ringing theory
-
+* *1.5 hours* reading into change-ringing theory
 * *1 hour* planning representation of methods and converting lead head into lead
-
 * *1 hour* setting up GitHub repository
 
 ### 17 Oct 2021
 
 * *2 hours* implementing lead head -> lead function for Cambridge S Minor
-
-* *2 hours 30 minutes* function for complib row data to nested int array format
+* *3 hours* function for complib row data to nested int array format
 
 ## Week 3
 
@@ -73,15 +68,14 @@
 
 ### 24 Oct 2021
 
-* *4 hours* debugging naive composition dfs
+* *5 hours* debugging naive composition dfs
 
 ## Week 4
 
 ### 25 Oct 2021
 
-* *1 hour 30 minutes* criteria/other additions to dfs (BitSet, 5000<=len<=5600, tenors together check) 
-
-* *30 minutes* supervisor meeting
+* *2 hours* criteria/other additions to dfs (BitSet, 5000<=len<=5600, tenors together check) 
+* *0.5 hour* supervisor meeting
 
 ### 31 Oct 2021
 
@@ -95,7 +89,7 @@
 
 ### 4 Nov 2021
 
-* *4 hours* debugging/some refactoring of composition search
+* *4.5 hours* debugging/some refactoring of composition search
 
 ### 7 Nov 2021
 
@@ -109,11 +103,11 @@
 
 ### 11 Nov 2021
 
-* *1 hour 30 minutes* added function for displaying compositions compactly, assisting with debugging incorrect output
+* *2.5 hours* added function for displaying compositions compactly, assisting with debugging incorrect output
 
 ### 12 Nov 2021
 
-* *2 hours* debugging false composition output
+* *3 hours* debugging false composition output
 
 ### 14 Nov 2021
 
@@ -137,7 +131,7 @@
 
 ### 24 Nov 2021
 
-* *1 hour 30 minutes* implement tabular display format for compositions
+* *1.5 hours* implement tabular display format for compositions
 
 ## Week 9
 
@@ -145,17 +139,17 @@
 
 ### 6 Dec 2021
 
-* *30 minutes* supervisor meeting, discussed status report
+* *0.5 hour* supervisor meeting, discussed status report
 
 ### 10 Dec 2021 
 
-* *2 hours* beginning to generalise search for different methods, preparing for spliced
+* *3 hours* generalising search for different methods, preparing for spliced
 
 ## Week 11
 
 ### 13 Dec 2021
 
-* *30 minutes* supervisor meeting, discussed parallelisation and multipart implementation
+* *0.5 hour* supervisor meeting, discussed parallelisation and multipart implementation
 
 ### 16 Dec 2021
 
@@ -175,7 +169,7 @@
 
 ### 15 Jan 2022
 
-* *5 hours* work on multipart search
+* *6 hours* work on multipart search
 
 ### 16 Jan 2022
 
@@ -185,7 +179,7 @@
 
 ### 17 Jan 2022
 
-* *30 minutes* supervisor meeting
+* *0.5 hour* supervisor meeting
 
 ### 18 Jan 2022
 
@@ -203,7 +197,7 @@
 
 ### 24 Jan 2022
 
-* *30 minutes* supervisor meeting
+* *0.5 hour* supervisor meeting
 
 ### 26 Jan 2022
 
@@ -217,7 +211,7 @@
 
 ### 31 Jan 2022
 
-* *30 minutes* supervisor meeting
+* *0.5 hour* supervisor meeting
 
 ### 2 Feb 2022
 
@@ -229,13 +223,100 @@
 
 ### 6 Feb 2022
 
-* *2 hours* reading into/trying to use GNU-parallel
-
+* *3 hours* reading into/trying to use GNU-parallel
 * *2 hours* set up SSH key for ssh1, unsure about cluster keys
 
 ## Week 17
 
 ### 7 Feb 2022
 
-* *30 minutes* supervisor meeting
+* *0.5 hour* supervisor meeting
 
+### 13 Feb 2022
+
+* *4 hours* trying to implement RecursiveAction
+
+## Week 18
+
+### 14 Feb 2022
+
+* *0.5 hour* supervisor meeting
+
+## Week 19
+
+### 21 Feb 2022
+
+* *0.5 hour* supervisor meeting
+
+### 23 Feb 2022
+
+* *3 hours* trying to set up java/environment on much weaker laptop
+
+### 26 Feb 2022
+
+* *2.5 hours* planning pursuing Runnable/Thread solution instead
+* *4 hours* work on functions that create start data 
+
+## Week 20
+
+### 28 Feb 2022
+
+* *0.5 hour* supervisor meeting
+
+### 2 Mar 2022
+
+* *3 hours* finish data generating functions
+
+### 5 Mar 2022
+
+* *3 hours* adapt lead_tree code to accept initial start data
+
+## Week 21
+
+### 8 Mar 2022
+
+* *4 hours* trying to adapt lead_tree code into Runnable format
+
+### 12 Mar 2022
+
+* *5 hours* more work on SearchRunnable
+
+### 13 Mar 2022
+
+* *8 hours* get first working version of a multithreaded search, finish adapting code into ParallelSearch and SearchRunnable
+
+## Week 22
+
+### 14 Mar 2022
+
+* *1 hour* change to 'collect' compositions then output at end rather than printing as they are found
+* *1 hour* supervisor meeting
+
+## Week 23
+
+### 21 Mar 2022
+
+* *0.5 hour* supervisor meeting, discussed background of composition software and plans for results
+
+### 23 Mar 2022
+
+* *4 hours* background research into other composition software
+
+### 24 Mar 2022
+
+* *3 hours* plan out dissertation into sections/sub-headings
+* *3 hours* research other change-ringing background
+
+## Week 24
+
+### 28 Mar 2022
+
+* *14 hours* work on dissertation
+
+### 29 Mar 2022
+
+* *8 hours* work on dissertation
+
+### 30 Mar 2022
+
+* *6 hours* work on dissertation
