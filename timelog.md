@@ -52,7 +52,7 @@
 * *2 hours* implementing lead head -> lead function for Cambridge S Minor
 * *3 hours* function for complib row data to nested int array format
 
-## Week 3
+## Week 4
 
 ### 18 Oct 2021
 
@@ -70,7 +70,7 @@
 
 * *5 hours* debugging naive composition dfs
 
-## Week 4
+## Week 5
 
 ### 25 Oct 2021
 
@@ -81,7 +81,7 @@
 
 * *11 hours* adapting composition search to dynamically update one set of arrays during traversal, rather than have copies in every vertex
 
-## Week 5
+## Week 6
 
 ### 1 Nov 2021
 
@@ -95,7 +95,7 @@
 
 * *8 hours* working on composition search, finally outputs long compositions (though not correct)
 
-## Week 6
+## Week 7
 
 ### 8 Nov 2021
 
@@ -113,7 +113,7 @@
 
 * *6 hours* debugging false composition output, implemented fix
 
-## Week 7
+## Week 8
 
 ### 15 Nov 2021
 
@@ -123,7 +123,7 @@
 
 * *3 hours* debugging, fixed handling of Before calls
 
-## Week 8
+## Week 9
 
 ### 22 Nov 2021
 
@@ -133,9 +133,9 @@
 
 * *1.5 hours* implement tabular display format for compositions
 
-## Week 9
-
 ## Week 10
+
+## Week 11
 
 ### 6 Dec 2021
 
@@ -145,7 +145,7 @@
 
 * *3 hours* generalising search for different methods, preparing for spliced
 
-## Week 11
+## Week 12
 
 ### 13 Dec 2021
 
@@ -159,13 +159,13 @@
 
 * *2 hours* wrote-up Semester 1 status report
 
-## Week 12
+## Week 13
 
 ### 21 Dec 2021
 
 * *4 hours* working on multipart search
 
-## Week 13
+## Week 14
 
 ### 15 Jan 2022
 
@@ -175,7 +175,7 @@
 
 * *5 hours* multipart search - adapting functions
 
-## Week 14
+## Week 15
 
 ### 17 Jan 2022
 
@@ -193,7 +193,7 @@
 
 * *8 hours* more debugging of multipart search, appears to be functional 
 
-## Week 15
+## Week 16
 
 ### 24 Jan 2022
 
@@ -207,7 +207,7 @@
 
 * *4 hours* better output for multipart search, show part heads etc
 
-## Week 16
+## Week 17
 
 ### 31 Jan 2022
 
@@ -226,7 +226,7 @@
 * *3 hours* reading into/trying to use GNU-parallel
 * *2 hours* set up SSH key for ssh1, unsure about cluster keys
 
-## Week 17
+## Week 18
 
 ### 7 Feb 2022
 
@@ -236,13 +236,13 @@
 
 * *4 hours* trying to implement RecursiveAction
 
-## Week 18
+## Week 19
 
 ### 14 Feb 2022
 
 * *0.5 hour* supervisor meeting
 
-## Week 19
+## Week 20
 
 ### 21 Feb 2022
 
@@ -257,7 +257,7 @@
 * *2.5 hours* planning pursuing Runnable/Thread solution instead
 * *4 hours* work on functions that create start data 
 
-## Week 20
+## Week 21
 
 ### 28 Feb 2022
 
@@ -271,7 +271,7 @@
 
 * *3 hours* adapt lead_tree code to accept initial start data
 
-## Week 21
+## Week 22
 
 ### 8 Mar 2022
 
@@ -285,14 +285,14 @@
 
 * *8 hours* get first working version of a multithreaded search, finish adapting code into ParallelSearch and SearchRunnable
 
-## Week 22
+## Week 23
 
 ### 14 Mar 2022
 
 * *1 hour* change to 'collect' compositions then output at end rather than printing as they are found
 * *1 hour* supervisor meeting
 
-## Week 23
+## Week 24
 
 ### 21 Mar 2022
 
@@ -307,7 +307,7 @@
 * *3 hours* plan out dissertation into sections/sub-headings
 * *3 hours* research other change-ringing background
 
-## Week 24
+## Week 25
 
 ### 28 Mar 2022
 
