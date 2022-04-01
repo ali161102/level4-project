@@ -113,7 +113,7 @@ public class ParallelSearch {
                             break;
                         case 2:
                             calls.add('B');
-                            break;
+                            return null;
                         default:
                             calls.add('x');
 
@@ -123,11 +123,6 @@ public class ParallelSearch {
 
             if (!tenorsTogether(current_lh)) {
                 // this pattern of calls is not one that can be explored in the search, so stop here
-                return null;
-            }
-
-            if (current_lh.indexOf("8") == 2) {
-                // 'Before' call
                 return null;
             }
 
