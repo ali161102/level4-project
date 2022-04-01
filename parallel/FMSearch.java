@@ -275,7 +275,7 @@ public class FMSearch {
             lead_length = 32;
             method_filename = "methods/cambridge_surprise_major.txt";
             /////////////////// its probably this
-            len_paths = 3;
+            len_paths = 5;
             /////////////////// you are looking for        
         } else {
             /* configuration - can be done from command line*/

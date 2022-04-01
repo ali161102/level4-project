@@ -176,7 +176,7 @@ class FMRunnable implements Runnable {
         int numrows = ((calls.size())*32);
 
         // length is between 5000 and 5600 inclusive, so return path
-        if (numrows >= 1250) {
+        //if (numrows >= 1250) {
         //if (numrows >= 5000) {
             //returns++;
             
@@ -209,7 +209,7 @@ class FMRunnable implements Runnable {
              
             //path.remove(path.size()-1);
             //calls.remove(path.size()-1);
-            }    
+            //}    
     }  
 
     public static int rowToInt(String rowstr) {
@@ -434,26 +434,26 @@ class FMRunnable implements Runnable {
                 composition.add(s.call);
                 
                 int numrows = ((composition.size()+1)*32);
-                numcompositions++;
 
-                String len_cat = "";
-                if ((numrows >= 1250) && (numrows <= 1599)) {
-                    len_cat = "quarter peal";
-                } else if ((numrows >= 2500) && (numrows <= 2999)) {
-                    len_cat = "half peal";
-                } else if ((numrows >= 5000) && (numrows <= 5600)) {
-                    len_cat = "peal";
-                } else if ((numrows >= 5377) && (numrows <= 9999)) {
-                    len_cat = "long peal";
-                } else if (numrows >= 10000) {
-                    len_cat = "long length";
-                }
+                // String len_cat = "";
+                // if ((numrows >= 1250) && (numrows <= 1599)) {
+                //     len_cat = "quarter peal";
+                // } else if ((numrows >= 2500) && (numrows <= 2999)) {
+                //     len_cat = "half peal";
+                // } else if ((numrows >= 5000) && (numrows <= 5600)) {
+                //     len_cat = "peal";
+                // } else if ((numrows >= 5377) && (numrows <= 9999)) {
+                //     len_cat = "long peal";
+                // } else if (numrows >= 10000) {
+                //     len_cat = "long length";
+                // }
 
                 // length is between 5000 and 5600 inclusive, so add composition
-                if ((len_cat == "peal") || (len_cat == "quarter peal")) {
+                if ((numrows >= 5000) && (numrows <= 5600)) {
                     //System.out.println(path + "\n" + calls + "\t" + initial.calls);
                     //compositions.add(composition);
-                    System.out.println("add comp to " + index + ": " + numcompositions);
+                    numcompositions++;
+                    System.out.println("composition found in " + index + ": " + numcompositions);
                     outputComposition(composition);
                     //outputCalls(condensePlains(composition));
                 }
