@@ -428,13 +428,12 @@ class FMRunnable implements Runnable {
             if (s.lead_head.equals("12345678")) {
                 // indicates that we have a true composition
                 s.setVisited(true);
-
+                numcompositions++;
                 // make a copy of the current array of calls and add to list of compositions
-                //ArrayList<Character> composition = (ArrayList<Character>) calls.clone();
-                //composition.add(s.call);
+
                 
                 int numrows = ((calls.size()+2)*32);
-                System.out.println(numrows);
+                System.out.println(numrows + "\t" + numcompositions);
                 // String len_cat = "";
                 // if ((numrows >= 1250) && (numrows <= 1599)) {
                 //     len_cat = "quarter peal";
@@ -454,7 +453,10 @@ class FMRunnable implements Runnable {
                     //compositions.add(composition);
                     numcompositions++;
                     System.out.println("composition found in " + index + ": " + numcompositions);
-                    //outputComposition(composition);
+
+                    ArrayList<Character> composition = (ArrayList<Character>) calls.clone();
+                    composition.add(s.call);
+                    outputComposition(composition);
                     //outputCalls(condensePlains(composition));
                 }
             }
