@@ -126,6 +126,11 @@ public class ParallelSearch {
                 return null;
             }
 
+            if (current_lh.indexOf("8") == 2) {
+                // 'Before' call
+                return null;
+            }
+
             path.add(current_lh);
             rung = addToBitSet(rung, lead(current_lh));
 
