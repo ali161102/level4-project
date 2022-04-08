@@ -79,9 +79,9 @@ class SearchRunnable implements Runnable {
             v.bob.setVisited(true);
         }
 
-        // if (!tenorsTogether(next_lh_bob)) {
-        //     v.bob.setVisited(true);
-        // }
+        if (!tenorsTogether(next_lh_bob)) {
+            v.bob.setVisited(true);
+        }
 
         // System.out.println(next_lh_plain + " " + next_lh_bob);
         currentlead.remove(currentlead.size()-1);
@@ -147,7 +147,7 @@ class SearchRunnable implements Runnable {
         int numrows = ((calls.size()+1)*32);
 
         // length is between 5000 and 5600 inclusive, so return path
-        if ((5000 <= numrows) && (numrows <= 5600)) {
+        if ((1250 <= numrows) && (numrows <= 2500)) {
         //if (numrows >= 5000) {
             //returns++;
             
@@ -372,7 +372,7 @@ class SearchRunnable implements Runnable {
                 // length is between 5000 and 5600 inclusive, so add composition
                 if ((5000 <= numrows) && (numrows <= 5600)) {
                     compositions.add(composition);
-                    System.out.println("add comp to " + index + ": " + compositions.size());
+                    // System.out.println("add comp to " + index + ": " + compositions.size());
                 }
             }
 
@@ -416,9 +416,10 @@ class SearchRunnable implements Runnable {
             }
         }
 
-        for (ArrayList<Character> composition : compositions) {
-            outputComposition(composition);
-        }
+        // for (ArrayList<Character> composition : compositions) {
+        //     outputComposition(composition);
+        // }
+        System.out.println("thread " + index + " finished: " + compositions.size() + " compositions found");
     }
 }
 
