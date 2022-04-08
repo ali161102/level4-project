@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
 
 public class ParallelSearch {
 
@@ -234,6 +235,7 @@ public class ParallelSearch {
         String method_filename = "";
         int lead_length = 32;
         int len_paths; // length of call strings (eg 'ppbp' = 4)
+        int num_cores = 8;
 
     
         if (args.length == 0) {
@@ -241,7 +243,7 @@ public class ParallelSearch {
             method_filename = "methods/cambridge_surprise_major.txt";
             lead_length = 32;
 
-            len_paths = 5;
+            len_paths = 7;
 
         
         } else {
@@ -250,17 +252,22 @@ public class ParallelSearch {
             lead_length = 32;
 
             len_paths = Integer.parseInt(args[1]);
+            num_cores = Integer.parseInt(args[2]);
             
 
             // ****
         }
         
-        System.out.println(java.lang.Thread.activeCount() + " threads running at start");
-        System.out.println(Runtime.getRuntime().availableProcessors() + " processors available");
+        //System.out.println(java.lang.Thread.activeCount() + " threads running at start");
+        //System.out.println(Runtime.getRuntime().availableProcessors() + " processors available");
 
 
         readMethod(method_filename, lead_length);
 
+        //ForkJoinPool commonPool = ForkJoinPool.commonPool(4);
+        ForkJoinPool pool = new ForkJoinPool(num_cores);
+
+        
         int num_started = 0;
 
         ArrayList<String> input_paths = create_input(len_paths);
@@ -275,10 +282,11 @@ public class ParallelSearch {
                 //System.out.println(path);
                 SearchRunnable sr = new SearchRunnable(num_started, method, sd);
                 //System.out.println(sr.path);
+                pool.submit(sr);
 
-                Thread t = new Thread(sr); 
-                t.start();      
-                System.out.println(java.lang.Thread.activeCount() + " active threads");  
+                //Thread t = new Thread(sr); 
+                //t.start();      
+                //System.out.println(java.lang.Thread.activeCount() + " active threads");  
 
                 
             }
@@ -288,8 +296,11 @@ public class ParallelSearch {
         System.out.println("length " + len_paths + " -> " + num_started + " paths");
 
         
-        while (java.lang.Thread.activeCount() > 1) {
-            
+        //while (java.lang.Thread.activeCount() > 1) {
+        while (pool.getActiveThreadCount() > 0) {    
+            //System.out.println(pool.getActiveThreadCount() + pool.getQueuedSubmissionCount());
+
+
         }
 
         long endTime = System.currentTimeMillis();
